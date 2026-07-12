@@ -1,0 +1,32 @@
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  background:#0b0f19;
+  color:white;
+  font-family:sans-serif;
+}
+
+#root{
+  max-width:100%;
+  margin:auto;
+  min-height:100vh;
+}
+
+button{
+  cursor:pointer;
+}
+
+a{
+  color:#f0c040;
+  text-decoration:none;
+}
+
+.card{
+  background:#141c2f;
+  border-radius:16px;
+  padding:16px;
+}

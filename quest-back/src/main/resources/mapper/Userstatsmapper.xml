@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- UserStatsMapper 인터페이스와 연결되는 SQL 정의 파일 -->
+<mapper namespace="org.cloud.mapper.UserStatsMapper">
+
+    <!-- 회원가입 시 스탯 초기 행 삽입 (모든 스탯 Lv.1, XP=0) -->
+    <insert id="insert">
+        INSERT INTO user_stats (user_id,
+            str_level, str_exp, str_daily_exp,
+            int_level, int_exp, int_daily_exp,
+            wil_level, wil_exp, wil_daily_exp,
+            vit_level, vit_exp, vit_daily_exp,
+            last_reset_date)
+        VALUES (#{userId},
+            1, 0, 0,
+            1, 0, 0,
+            1, 0, 0,
+            1, 0, 0,
+            CURDATE())
+    </insert>
+
+    <!-- 회원 ID로 스탯 전체 조회 -->
+    <select id="findByUserId" parameterType="Long" resultType="org.cloud.domain.UserStats">
+        SELECT user_id,
+               str_level, str_exp, str_daily_exp,
+               int_level, int_exp, int_daily_exp,
+               wil_level, wil_exp, wil_daily_exp,
+               vit_level, vit_exp, vit_daily_exp,
+               last_reset_date
+        FROM user_stats
+        WHERE user_id = #{userId}
+    </select>
+
+    <!--
+        퀘스트 완료 후 특정 스탯 XP + 레벨 업데이트
+        statType(STR/INT/WIL/VIT)에 따라 해당 컬럼만 동적으로 업데이트
+        <choose>로 statType 분기 처리
+    -->
+    <update id="updateStatExp">
+        UPDATE user_stats
+        <choose>
+            <when test="statType == 'STR'">
+                SET str_exp       = #{newExp},
+                    str_level     = #{newLevel},
+                    str_daily_exp = #{newDailyExp}
+            </when>
+            <when test="statType == 'INT'">
+                SET int_exp       = #{newExp},
+                    int_level     = #{newLevel},
+                    int_daily_exp = #{newDailyExp}
+            </when>
+            <when test="statType == 'WIL'">
+                SET wil_exp       = #{newExp},
+                    wil_level     = #{newLevel},
+                    wil_daily_exp = #{newDailyExp}
+            </when>
+            <when test="statType == 'VIT'">
+                SET vit_exp       = #{newExp},
+                    vit_level     = #{newLevel},
+                    vit_daily_exp = #{newDailyExp}
+            </when>
+        </choose>
+        WHERE user_id = #{userId}
+    </update>
+
+    <!-- 자정 스케줄러용: 전체 유저 일일 XP 리셋 + 날짜 갱신 -->
+    <update id="resetAllDailyExp">
+        UPDATE user_stats
+        SET str_daily_exp  = 0,
+            int_daily_exp  = 0,
+            wil_daily_exp  = 0,
+            vit_daily_exp  = 0,
+            last_reset_date = CURDATE()
+        WHERE last_reset_date &lt; CURDATE()
+    </update>
+
+</mapper>

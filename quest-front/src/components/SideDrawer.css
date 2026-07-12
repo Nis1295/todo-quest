@@ -1,0 +1,202 @@
+/* 배경 오버레이 */
+.drawer-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s;
+  z-index: 100;
+}
+.drawer-overlay.visible {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* 드로어 본체 */
+.drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 280px;
+  height: 100vh;
+  background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  transform: translateX(100%);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 101;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 0 30px;
+  overflow-y: auto;
+}
+.drawer.open {
+  transform: translateX(0);
+}
+
+/* 닫기 버튼 */
+.drawer-close {
+  align-self: flex-end;
+  margin-right: 20px;
+  background: rgba(255, 255, 255, 0.08);
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+/* 프로필 */
+.drawer-profile {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 0 20px 20px;
+}
+.drawer-avatar {
+  width: 52px;
+  height: 52px;
+  background: rgba(240, 192, 64, 0.15);
+  border: 2px solid rgba(240, 192, 64, 0.4);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  flex-shrink: 0;
+}
+.drawer-nickname {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+}
+.drawer-level {
+  font-size: 0.8rem;
+  color: #f0c040;
+  margin-top: 2px;
+}
+.drawer-point {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.5);
+  margin-top: 3px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.point-icon {
+  font-size: 0.75rem;
+}
+
+/* 구분선 */
+.drawer-divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.08);
+  margin: 8px 0;
+}
+
+/* 섹션 타이틀 */
+.drawer-section-title {
+  padding: 8px 20px 4px;
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.35);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* 메뉴 아이템 */
+.drawer-nav {
+  display: flex;
+  flex-direction: column;
+}
+.drawer-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 20px;
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.15s;
+}
+.drawer-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+.drawer-item-icon {
+  font-size: 1rem;
+  width: 20px;
+  text-align: center;
+}
+.drawer-item-arrow {
+  margin-left: auto;
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 1.1rem;
+}
+.drawer-item-badge {
+  margin-left: auto;
+  font-size: 0.65rem;
+  padding: 2px 7px;
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.35);
+}
+
+/* 로그아웃 */
+.drawer-logout {
+  margin: 12px 20px 0;
+  padding: 12px;
+  background: rgba(255, 80, 80, 0.1);
+  border: 1px solid rgba(255, 80, 80, 0.25);
+  border-radius: 10px;
+  color: #ff6b6b;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.drawer-logout:hover {
+  background: rgba(255, 80, 80, 0.18);
+}
+
+/* 버전 */
+.drawer-version {
+  margin-top: auto;
+  text-align: center;
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.2);
+  padding-top: 20px;
+}
+
+/* 게스트 배지 */
+.drawer-guest-badge {
+  font-size: 0.65rem;
+  padding: 2px 7px;
+  border-radius: 99px;
+  background: rgba(240, 192, 64, 0.15);
+  color: #f0c040;
+  border: 1px solid rgba(240, 192, 64, 0.3);
+}
+
+/* 게스트 계정 연동 배너 */
+.drawer-guest-banner {
+  margin: 0 20px 4px;
+  padding: 12px 16px;
+  background: rgba(240, 192, 64, 0.08);
+  border: 1px solid rgba(240, 192, 64, 0.25);
+  border-radius: 10px;
+  color: #f0c040;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background 0.15s;
+}
+.drawer-guest-banner:hover {
+  background: rgba(240, 192, 64, 0.15);
+}

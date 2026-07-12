@@ -1,0 +1,244 @@
+.main-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  max-width: 480px;
+  margin: 0 auto;
+  padding-bottom: 80px;
+}
+
+/* 헤더 */
+.main-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 20px 12px;
+}
+
+.main-date {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.main-header-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.main-nickname {
+  font-size: 0.9rem;
+  color: #f0c040;
+  font-weight: 600;
+}
+
+.main-nav-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  border-radius: 8px;
+  padding: 6px 10px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.main-logout-btn {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  padding: 5px 10px;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+
+/* 탭 */
+.main-tabs {
+  display: flex;
+  padding: 0 20px;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.main-tab {
+  flex: 1;
+  padding: 8px 0;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.main-tab.active {
+  background: #f0c040;
+  border-color: #f0c040;
+  color: #1a1a2e;
+  font-weight: 700;
+}
+
+/* 퀘스트 목록 */
+.main-quest-list {
+  flex: 1;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.main-empty {
+  color: rgba(255, 255, 255, 0.4);
+  text-align: center;
+  margin-top: 40px;
+  font-size: 0.9rem;
+}
+
+.quest-card {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  padding: 14px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: opacity 0.2s;
+}
+
+.quest-card.done {
+  opacity: 0.5;
+}
+
+.quest-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.quest-stat {
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 6px;
+  letter-spacing: 0.5px;
+}
+
+.stat-str {
+  background: #e74c3c33;
+  color: #e74c3c;
+  border: 1px solid #e74c3c55;
+}
+.stat-int {
+  background: #3498db33;
+  color: #3498db;
+  border: 1px solid #3498db55;
+}
+.stat-wil {
+  background: #9b59b633;
+  color: #9b59b6;
+  border: 1px solid #9b59b655;
+}
+.stat-vit {
+  background: #2ecc7133;
+  color: #2ecc71;
+  border: 1px solid #2ecc7155;
+}
+
+.quest-title {
+  font-size: 0.95rem;
+  color: #fff;
+}
+
+.quest-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.quest-xp {
+  font-size: 0.8rem;
+  color: #f0c040;
+  font-weight: 600;
+}
+
+.quest-complete-btn {
+  background: linear-gradient(135deg, #f0c040, #e6a800);
+  border: none;
+  border-radius: 8px;
+  padding: 6px 14px;
+  color: #1a1a2e;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.quest-done-badge {
+  color: #2ecc71;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+/* + 버튼 */
+.main-add-btn {
+  margin: 20px;
+  padding: 14px;
+  background: rgba(240, 192, 64, 0.1);
+  border: 1px dashed #f0c040;
+  border-radius: 14px;
+  color: #f0c040;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.main-add-btn:hover {
+  background: rgba(240, 192, 64, 0.2);
+}
+
+/* 하단 네비게이션 */
+.main-bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 480px;
+  display: flex;
+  background: rgba(15, 20, 40, 0.95);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.main-bottom-nav button {
+  flex: 1;
+  padding: 14px 0;
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.main-bottom-nav button.active {
+  color: #f0c040;
+  font-weight: 700;
+}
+
+/* 햄버거 메뉴 버튼 */
+.main-menu-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  border-radius: 8px;
+  padding: 6px 10px;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.main-menu-btn:hover {
+  background: rgba(255, 255, 255, 0.18);
+}

@@ -1,0 +1,556 @@
+/* 🌟 메인 컨테이너 영역 (부모 #root 공간 가로 100% 꽉 채우도록 설정) */
+.todo-container {
+  min-height: 100vh;
+  width: 100%;
+  background-color: #0b0f19;
+  color: #ffffff;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  padding: 20px 20px 84px 20px; /* 하단 고정 네비 바(64px)와 겹치지 않도록 아래쪽 패딩 추가 버퍼 확보 */
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 상단 헤더 균등 가로 배열 정렬 */
+.todo-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+}
+
+.todo-date-info {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #ffcc00;
+}
+
+/* 우상단 선 3개 햄버거 버튼 */
+.menu-hamburger-btn {
+  background: none;
+  border: none;
+  color: #8fa0c4;
+  font-size: 1.6rem;
+  cursor: pointer;
+  padding: 4px;
+  transition: color 0.2s ease;
+}
+.menu-hamburger-btn:hover {
+  color: #ffcc00;
+}
+
+/* 상단 기간 제어 탭 그룹 (가로 100% 너비 맞춤) */
+.tab-group {
+  width: 100%;
+  display: flex;
+  background-color: #1e2640;
+  border-radius: 12px;
+  padding: 4px;
+  margin-bottom: 24px;
+  gap: 4px;
+  box-sizing: border-box;
+}
+
+.tab-button {
+  flex: 1;
+  background: none;
+  border: none;
+  color: #8fa0c4;
+  padding: 12px;
+  font-size: 0.95rem;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+
+.tab-button.active {
+  background-color: #2b3554;
+  color: #ffcc00;
+}
+
+/* 퀘스트 카드 리스트 묶음 */
+.quest-list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-sizing: border-box;
+}
+
+/* 단일 퀘스트 카드 바디 */
+.quest-card {
+  position: relative;
+  width: 100%;
+  background-color: #1e2640;
+  border-radius: 14px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  border: 1px solid #2b3554;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
+}
+
+/* 퀘스트 내부 콘텐츠 레이아웃 */
+.quest-top-row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-right: 24px; /* 삭제 버튼 공간 확보 */
+}
+
+/* 기획서 지정 스탯 태그 */
+.stat-tag {
+  font-size: 0.75rem;
+  font-weight: bold;
+  padding: 4px 8px;
+  border-radius: 6px;
+  color: #ffffff;
+  flex-shrink: 0;
+}
+.stat-tag.STR {
+  background-color: #e74c3c;
+}
+.stat-tag.INT {
+  background-color: #3498db;
+}
+.stat-tag.WIL {
+  background-color: #8b5cf6;
+}
+.stat-tag.VIT {
+  background-color: #2ecc71;
+}
+
+.quest-title {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #ffffff;
+  word-break: break-all;
+}
+
+/* 우상단 X 삭제 버튼 */
+.delete-card-btn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: none;
+  border: none;
+  color: #627299;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: color 0.2s;
+  padding: 4px;
+}
+.delete-card-btn:hover {
+  color: #ff4d4d;
+}
+
+/* 기획서 명시: 세로막대형 2분할 버튼 구조 */
+.card-actions {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.action-btn {
+  border: none;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 0.95rem;
+  font-weight: bold;
+  cursor: pointer;
+  width: 100%;
+  box-sizing: border-box;
+  transition: opacity 0.2s;
+}
+.action-btn:hover {
+  opacity: 0.9;
+}
+
+.action-btn.complete {
+  background-color: #ffcc00;
+  color: #0d111a;
+}
+.action-btn.extend {
+  background-color: #2b3554;
+  color: #ffffff;
+  border: 1px solid #37456b;
+}
+
+/* 🌟 완료된 퀘스트 카드는 전체적으로 투명도를 주어 색상을 연하게 만듭니다 */
+.quest-card.completed-status {
+  opacity: 0.5; /* 카드를 흐리고 연하게 처리 */
+  border-color: #1a253f;
+  background-color: #161e33;
+  pointer-events: none; /* 클릭 방지 */
+  transition: all 0.3s ease;
+}
+
+/* 완료된 카드 내부의 타이틀과 태그 색상 조절 */
+.quest-card.completed-status .quest-title {
+  color: #8fa0c4;
+  text-decoration: line-through; /* 완료 표시로 취선 추가 (선택사항) */
+}
+
+/* 완료 버튼이 비활성화되었을 때의 디자인 */
+.action-btn.complete:disabled {
+  background-color: #2b3554;
+  color: #627299;
+  cursor: not-allowed;
+}
+
+/* 삭제 모달 모크업 디자인 */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+.modal-content {
+  background-color: #1e2640;
+  border: 2px solid #ff4d4d;
+  border-radius: 16px;
+  padding: 24px;
+  width: 280px;
+  text-align: center;
+}
+.modal-text {
+  color: #ffffff;
+  margin-bottom: 20px;
+  font-size: 0.95rem;
+}
+.modal-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+/* 🌟 하단 고정 글로벌 네비게이션 바 레이아웃 교정 */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  width: 100%;
+  max-width: 100%; /* global.css의 #root 맥스 폭 규격과 일치시켜 이탈 방지 */
+  height: 64px;
+  background-color: #141a29;
+  border-top: 1px solid #222b45;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 90;
+  box-sizing: border-box;
+}
+
+.nav-item {
+  background: none;
+  border: none;
+  color: #627299;
+  font-size: 0.85rem;
+  font-weight: bold;
+  cursor: pointer;
+  flex: 1;
+  text-align: center;
+  padding: 8px;
+}
+.nav-item.active {
+  color: #ffcc00;
+}
+
+/* 사이드 메뉴 서랍장 영역 (화면 전체 덮기 락) */
+.side-drawer-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+.side-drawer-overlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* 🌟 내부 슬라이딩 사이드바 (기기 크기에 관계없이 정밀 정착) */
+.side-drawer {
+  position: absolute;
+  top: 0;
+  right: -280px;
+  width: 280px;
+  height: 100%;
+  background-color: #1e2640;
+  border-left: 2px solid #37456b;
+  box-shadow: -5px 0 25px rgba(0, 0, 0, 0.5);
+  padding: 24px;
+  box-sizing: border-box;
+  transition: right 0.3s ease;
+}
+.side-drawer-overlay.open .side-drawer {
+  right: 0;
+}
+
+.drawer-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-bottom: 1px solid #37456b;
+  padding-bottom: 16px;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+}
+.drawer-user-name {
+  color: #ffcc00;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+.drawer-user-sub {
+  color: #8fa0c4;
+  font-size: 0.75rem;
+  margin: 4px 0 0 0;
+}
+.drawer-close-btn {
+  background: none;
+  border: none;
+  color: #8fa0c4;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 2px;
+}
+
+/* 메뉴 리스트 구성 */
+.drawer-menu-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+.drawer-menu-list li {
+  color: #ffffff;
+  padding: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: background-color 0.2s;
+  box-sizing: border-box;
+}
+.drawer-menu-list li:hover {
+  background-color: #2b3554;
+  color: #ffcc00;
+}
+.drawer-menu-list li.logout {
+  margin-top: 30px;
+  color: #ff4d4d;
+  border-top: 1px solid #37456b;
+  border-radius: 0;
+}
+
+/* ===================================================
+   🌟 [스크린샷 1:1 완벽 이식] 아바타 겹침 배지 스타일 마감
+   =================================================== */
+
+/* 아바타 영역과 배지를 묶어주는 절대좌표 기준 부모 컨테이너 */
+.drawer-avatar-relative-container {
+  position: relative;
+  width: 56px;
+  height: 56px;
+  display: inline-block;
+}
+
+/* 1. 이미지 외부 프레임을 완벽한 작은 원형으로 고정 */
+.avatar-frame {
+  width: 56px !important;
+  height: 56px !important;
+  border-radius: 50% !important;
+  background-color: #242b47;
+  border: 2px solid #ffffff; /* 시안 고유의 백색 라인 테두리 보정 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden !important; /* 내부 이미지 가두기 기믹 필수 ⭐ */
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+/* 2. 내부 이미지가 원을 빈틈없이 채우도록 지정 */
+.avatar-img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important; /* 이미지 채움 명세 준수 ⭐ */
+}
+
+.avatar-fallback {
+  font-size: 1.4rem !important;
+  color: #ffcc00;
+}
+
+/* 3. 🌟 캡처 시안 핵심: 아바타 우하단에 겹쳐 흐르는 작은 노란색 원형 펜 배지 구현 */
+.avatar-edit-pencil-badge {
+  position: absolute;
+  bottom: -2px; /* 원 아래쪽 살짝 걸치게 오프셋 배치 ⭐ */
+  right: -2px; /* 원 오른쪽 살짝 걸치게 오프셋 배치 ⭐ */
+  width: 20px;
+  height: 20px;
+  background-color: #ffcc00; /* 화사한 노란색 뱃지 */
+  border-radius: 50%;
+  font-size: 0.65rem; /* 작은 연필 아이콘 크기 매핑 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+  z-index: 10;
+  cursor: pointer;
+}
+
+/* 닉네임 우측 연필 레이아웃 가독성 보정 */
+.nickname-display-flex-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.edit-pencil-icon-txt {
+  color: #ef4444;
+  font-size: 0.85rem;
+}
+
+/* ===================================================
+   🌟 [레이아웃 대교정] 이미지 왼쪽, 텍스트 오른쪽 나란히 배치 및 X 버튼 우상단 고정
+   =================================================== */
+
+/* 프로필 화면 전체 레이아웃 구성 가로 정렬화 */
+.drawer-profile-screen {
+  display: flex !important;
+  flex-direction: row !important; /* 세로 정렬 무너짐 방지, 무조건 가로 정렬 ⭐ */
+  align-items: center !important; /* 상하 수평 중앙 맞춤 */
+  gap: 16px !important; /* 이미지와 텍스트 사이 정밀 여백 확보 */
+  padding-bottom: 20px;
+  border-bottom: 1px solid #37456b;
+  margin-bottom: 16px;
+  width: 100%;
+}
+
+/* 🌟 [명세 핵심] 닫기 X 버튼을 서랍장 오른쪽 맨 위 구석탱이에 강제 고정 */
+.drawer-top-right-close-btn {
+  position: absolute !important;
+  top: 16px !important; /* 상단 구석 오프셋 */
+  right: 16px !important; /* 우측 구석 오프셋 ⭐ */
+  background: none !important;
+  border: none !important;
+  color: #8fa0c4 !important;
+  font-size: 1.4rem !important; /* 터치하기 편하게 큼직하게 변경 */
+  font-weight: bold !important;
+  cursor: pointer !important;
+  z-index: 9999 !important; /* 다른 요소보다 무조건 위에 띄움 */
+  padding: 4px;
+  transition: color 0.2s ease;
+}
+.drawer-top-right-close-btn:hover {
+  color: #ffcc00 !important; /* 마우스 올리면 노랗게 반짝임 */
+}
+
+/* 프로필 우측 텍스트 그룹 정렬 박스 */
+.profile-details {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  text-align: left; /* 텍스트 정밀 좌측 정렬 */
+}
+
+.drawer-nickname-txt {
+  font-size: 1.1rem !important;
+  font-weight: bold !important;
+  color: #ffffff;
+}
+
+.drawer-user-lv {
+  color: #ffcc00 !important; /* Lv.25 황금색 스크린 정산 */
+  font-weight: bold !important;
+  font-size: 0.9rem !important;
+  margin: 0 !important;
+}
+
+.drawer-user-pts {
+  color: #aebedb !important;
+  font-size: 0.85rem !important;
+  margin: 0 !important;
+}
+
+/* 기존 드로어 내 구형 close 버튼 마크 삭제용 가드 처리 */
+.drawer-header .drawer-close-btn {
+  display: none !important;
+}
+
+/* ===================================================
+   🌟 퀘스트 리스트 바로 밑 ➕ 퀘스트 추가 대형 버튼 전용 스타일 
+   =================================================== */
+.quest-list-append-btn {
+  background-color: #2b3554 !important;
+  border: 1px dashed #4f6396 !important;
+  color: #ffcc00 !important;
+  font-size: 1rem !important;
+  font-weight: bold !important;
+  padding: 16px !important;
+  border-radius: 14px !important;
+  cursor: pointer !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  margin-top: 8px !important;
+  transition: all 0.2s ease;
+}
+
+.quest-list-append-btn:hover {
+  background-color: #354269 !important;
+  border-color: #ffcc00 !important;
+  box-shadow: 0 4px 12px rgba(255, 204, 0, 0.15);
+}
+
+.quest-list-append-btn:active {
+  transform: scale(0.98);
+}
+
+.quest-brand-area {
+  text-align: center;
+  margin: 15px 0 25px;
+}
+
+.quest-brand-logo {
+  width: 110px;
+  height: 110px;
+  object-fit: contain;
+  margin-bottom: 6px;
+}
+
+.quest-brand-title {
+  margin: 0;
+  color: #ffd700;
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.quest-brand-slogan {
+  margin-top: 6px;
+  color: #9fb2d9;
+  font-size: 0.9rem;
+  font-style: italic;
+}

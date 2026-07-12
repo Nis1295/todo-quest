@@ -1,0 +1,182 @@
+/* Auth 화면 공통 스타일 (로그인, 회원가입) */
+
+.auth-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+}
+
+.auth-box {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 40px 36px;
+  width: 100%;
+  max-width: 380px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.auth-logo {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #f0c040;
+  text-align: center;
+  margin-bottom: 6px;
+  letter-spacing: 2px;
+}
+
+.auth-sub {
+  color: rgba(255, 255, 255, 0.5);
+  text-align: center;
+  font-size: 0.85rem;
+  margin-bottom: 28px;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.auth-form input,
+.auth-form select {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  padding: 12px 16px;
+  color: #fff;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.auth-form input:focus,
+.auth-form select:focus {
+  border-color: #f0c040;
+}
+
+.auth-form select option {
+  background: #1a1a2e;
+}
+
+.auth-radio-group {
+  display: flex;
+  gap: 20px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+  padding: 4px 0;
+}
+
+.auth-radio-group label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.auth-btn {
+  background: linear-gradient(135deg, #f0c040, #e6a800);
+  border: none;
+  border-radius: 10px;
+  padding: 13px;
+  color: #1a1a2e;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  margin-top: 4px;
+}
+
+.auth-btn:hover {
+  opacity: 0.9;
+}
+
+.auth-btn-secondary {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  padding: 11px;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.auth-btn-secondary:hover {
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.auth-error {
+  color: #ff6b6b;
+  font-size: 0.85rem;
+  text-align: center;
+  margin: 0;
+}
+
+.auth-link {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.85rem;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.auth-link a {
+  color: #f0c040;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.auth-link a:hover {
+  text-decoration: underline;
+}
+
+/* 구분선 */
+.auth-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 16px 0 12px;
+}
+.auth-divider::before,
+.auth-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.1);
+}
+.auth-divider span {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+/* 게스트 버튼 */
+.auth-btn-guest {
+  width: 100%;
+  padding: 13px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.auth-btn-guest:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+.auth-btn-guest:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* 게스트 안내 문구 */
+.auth-guest-notice {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.3);
+  text-align: center;
+  margin: 8px 0 16px;
+}

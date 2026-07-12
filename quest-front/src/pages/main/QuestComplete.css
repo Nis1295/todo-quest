@@ -1,0 +1,351 @@
+.qc-complete-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.qc-loading {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.5);
+  background: #1a1a2e;
+}
+
+/* 양심 문구 오버레이 */
+.qc-conscience {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  padding: 40px;
+}
+.qc-conscience p {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #f0c040;
+  text-align: center;
+  line-height: 1.6;
+  font-style: italic;
+}
+
+/* 헤더 */
+.qc-complete-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 20px 12px;
+}
+.qc-complete-header h2 {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+.qc-back {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+/* 퀘스트 정보 */
+.qc-complete-info {
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.qc-complete-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+.qc-stat-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 6px;
+}
+.stat-str {
+  background: #e74c3c33;
+  color: #e74c3c;
+  border: 1px solid #e74c3c55;
+}
+.stat-int {
+  background: #3498db33;
+  color: #3498db;
+  border: 1px solid #3498db55;
+}
+.stat-wil {
+  background: #9b59b633;
+  color: #9b59b6;
+  border: 1px solid #9b59b655;
+}
+.stat-vit {
+  background: #2ecc7133;
+  color: #2ecc71;
+  border: 1px solid #2ecc7155;
+}
+
+/* 본문 */
+.qc-complete-body {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 체크 */
+.qc-check-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+.qc-check-icon {
+  width: 100px;
+  height: 100px;
+  background: rgba(240, 192, 64, 0.1);
+  border: 3px solid #f0c040;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  color: #f0c040;
+}
+.qc-check-area p {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.9rem;
+}
+
+/* 타이머 */
+.qc-timer-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+}
+.qc-timer-target {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.4);
+}
+.qc-timer-display {
+  font-size: 4rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: #fff;
+  letter-spacing: 2px;
+  transition: color 0.3s;
+}
+.qc-timer-display.done {
+  color: #f0c040;
+}
+.qc-timer-progress {
+  width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 99px;
+  overflow: hidden;
+}
+.qc-timer-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #f0c040, #e6a800);
+  border-radius: 99px;
+  transition: width 0.5s;
+}
+.qc-timer-done-msg {
+  font-size: 1rem;
+  color: #f0c040;
+  font-weight: 600;
+}
+.qc-timer-btns {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+.qc-timer-btn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.qc-timer-btn.start {
+  background: #f0c040;
+  color: #1a1a2e;
+}
+.qc-timer-btn.pause {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+.qc-timer-btn.stop {
+  background: rgba(255, 80, 80, 0.15);
+  color: #ff6b6b;
+  border: 1px solid rgba(255, 80, 80, 0.3);
+}
+
+/* 사진 */
+.qc-photo-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+}
+.qc-photo-btns {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+.qc-photo-btn {
+  padding: 14px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  color: #fff;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.qc-photo-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+.qc-photo-preview-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+.qc-photo-preview {
+  width: 100%;
+  max-height: 280px;
+  object-fit: cover;
+  border-radius: 14px;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+}
+.qc-photo-retake {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  padding: 8px 20px;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+.qc-photo-hint {
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.35);
+}
+
+/* 푸터 완료 버튼 */
+.qc-complete-footer {
+  padding: 20px;
+}
+.qc-complete-btn {
+  width: 100%;
+  padding: 15px;
+  background: linear-gradient(135deg, #f0c040, #e6a800);
+  border: none;
+  border-radius: 14px;
+  color: #1a1a2e;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.qc-complete-btn.disabled,
+.qc-complete-btn:disabled {
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.3);
+  cursor: not-allowed;
+}
+
+/* 완료 결과 화면 */
+.qc-result {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 40px;
+  max-width: 480px;
+  margin: 0 auto;
+}
+.qc-result-icon {
+  font-size: 4rem;
+}
+.qc-result h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #fff;
+}
+.qc-result-xp {
+  font-size: 1.2rem;
+  color: #f0c040;
+  font-weight: 600;
+}
+.qc-result-btn {
+  margin-top: 16px;
+  padding: 14px 40px;
+  background: linear-gradient(135deg, #f0c040, #e6a800);
+  border: none;
+  border-radius: 12px;
+  color: #1a1a2e;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* 사진 인증 안내 */
+.qc-photo-guide {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin-bottom: 4px;
+}
+.qc-photo-guide-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 8px;
+}
+.qc-photo-guide-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 0;
+  margin: 0;
+}
+.qc-photo-guide-list li {
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.45);
+  padding-left: 12px;
+  position: relative;
+}
+.qc-photo-guide-list li::before {
+  content: "·";
+  position: absolute;
+  left: 0;
+  color: #f0c040;
+}

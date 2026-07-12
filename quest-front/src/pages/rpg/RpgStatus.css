@@ -1,0 +1,508 @@
+/* 전체 레이아웃 (모바일 디바이스 규격 타겟팅) */
+.rpg-container {
+  min-height: 100vh;
+  background-color: #0d1220; /* 시안 특유의 딥 네이비 */
+  color: #ffffff;
+  padding: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  font-family: -apple-system, BlinkMacSystemFont, "Malgun Gothic", sans-serif;
+}
+
+/* 메인 스마트폰 스크린 형태 모크업 카드 */
+.rpg-card {
+  width: 100%;
+  max-w-md: 390px; /* 아이폰/갤럭시 최적화 크기 */
+  background: linear-gradient(180deg, #131a30 0%, #0d1220 100%);
+  border-radius: 24px;
+  padding: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+/* 상단 네비게이션 헤더 */
+.rpg-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.back-btn {
+  background: none;
+  border: none;
+  color: #8f9bb3;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.header-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* 유저 프로필 영역 (레벨 & 포인트) */
+.profile-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.user-info .user-lv {
+  font-size: 28px;
+  font-weight: 800;
+  color: #ffcc00; /* 황금빛 레벨 텍스트 */
+}
+
+.user-info .user-title {
+  font-size: 13px;
+  color: #8f9bb3;
+  margin-top: 2px;
+}
+
+.user-points {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background-color: rgba(255, 204, 0, 0.1);
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  color: #ffcc00;
+  font-weight: 600;
+}
+
+/* 중앙 불꽃 원형 비주얼 아바타 */
+.avatar-center-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.avatar-glow-circle {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background-color: #101628;
+  border: 3px solid transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+  transition: all 0.4s ease;
+}
+
+/* 티어별 글로우 핵심 이펙트 클래스 */
+.glow-none {
+  box-shadow: none;
+}
+.glow-low {
+  animation: pulse-glow 2s infinite;
+}
+.glow-mid {
+  animation: pulse-glow 1.5s infinite;
+  transform: scale(1.02);
+}
+.glow-high {
+  animation: pulse-glow 0.9s infinite;
+  transform: scale(1.04);
+}
+
+@keyframes pulse-glow {
+  0% {
+    opacity: 0.9;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.9;
+  }
+}
+
+/* 수평 스크롤 가로 태그 필터 영역 */
+.tag-filter-container {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  margin-bottom: 16px;
+}
+
+.tag-filter-container::-webkit-scrollbar {
+  display: none; /* 스크롤바 숨김 */
+}
+
+.status-tag {
+  white-space: nowrap;
+  padding: 6px 14px;
+  border-radius: 16px;
+  background-color: #1a2238;
+  border: 1px solid #25314e;
+  font-size: 12px;
+  color: #8f9bb3;
+  font-weight: 500;
+}
+
+.status-tag.active {
+  background-color: rgba(231, 76, 60, 0.15);
+  border-color: #e74c3c;
+  color: #e74c3c;
+}
+
+/* 개별 스탯 카드 리스트 스타일 */
+.scrolling-stat-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.stat-card-item {
+  background-color: #161f35;
+  border: 1px solid #202c4b;
+  border-radius: 16px;
+  padding: 14px 16px;
+}
+
+.stat-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.stat-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.stat-icon {
+  font-size: 16px;
+}
+
+.stat-name-kr {
+  font-size: 14px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.stat-name-en {
+  font-size: 11px;
+  color: #6b7a99;
+  margin-left: 4px;
+}
+
+.stat-card-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.stat-level-text {
+  font-size: 13px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.detail-view-btn {
+  background-color: #202c4b;
+  border: none;
+  color: #8f9bb3;
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* 스탯 내부 디테일 게이지 바 영역 */
+.stat-card-bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.gauge-track {
+  width: 100%;
+  background-color: #0f1524;
+  height: 6px;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.gauge-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.4s cubic-bezier(0.1, 0.8, 0.2, 1);
+}
+
+.gauge-numerical-row {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 10px;
+  color: #6b7a99;
+}
+
+/* 하단 퀘스트 성공 통계 블록 */
+.quest-summary-block {
+  background-color: rgba(22, 31, 53, 0.5);
+  border: 1px solid #1a253f;
+  border-radius: 16px;
+  padding: 14px;
+  margin-top: 10px;
+}
+
+.quest-block-title {
+  font-size: 12px;
+  color: #8f9bb3;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.quest-grid-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  text-align: center;
+}
+
+.quest-grid-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.quest-icon-wrap {
+  font-size: 16px;
+}
+
+.quest-type-label {
+  font-size: 10px;
+  color: #6b7a99;
+}
+
+.quest-count-value {
+  font-size: 12px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.nav-item {
+  background: none;
+  border: none;
+  color: #627299;
+  font-size: 0.85rem;
+  font-weight: bold;
+  cursor: pointer;
+  flex: 1;
+  text-align: center;
+  padding: 8px;
+}
+.nav-item.active {
+  color: #ffcc00;
+}
+
+.quest-pad {
+  padding-bottom: 50px;
+}
+/* ===================================================== */
+/* 아래부터 추가: 불꽃 파티클 이펙트 + 상세 팝업 (내 작업물) */
+/* ===================================================== */
+
+.avatar-glow-circle {
+  overflow: visible;
+}
+
+.flame-wrap {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.flame-particle {
+  position: absolute;
+  bottom: 10px;
+  border-radius: 50% 50% 30% 30%;
+  animation: flame-rise linear infinite;
+  opacity: 0;
+  transform-origin: bottom center;
+}
+
+.flame-particle.flame-low {
+  filter: blur(3px);
+}
+.flame-particle.flame-mid {
+  filter: blur(2px);
+}
+.flame-particle.flame-high {
+  filter: blur(1.5px);
+}
+
+@keyframes flame-rise {
+  0% {
+    transform: translateY(0) scaleX(1) rotate(0deg);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.9;
+  }
+  50% {
+    transform: translateY(-40px) scaleX(0.7) rotate(-5deg);
+    opacity: 0.6;
+  }
+  80% {
+    transform: translateY(-75px) scaleX(0.4) rotate(5deg);
+    opacity: 0.2;
+  }
+  100% {
+    transform: translateY(-100px) scaleX(0.1) rotate(0deg);
+    opacity: 0;
+  }
+}
+
+/* 상세 팝업 (다음등급 / 디버프 포함) */
+.rpg-popup-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 200;
+  padding-bottom: 80px;
+}
+.rpg-popup {
+  background: #131a30;
+  border: 1px solid #202c4b;
+  border-radius: 20px 20px 0 0;
+  width: 100%;
+  max-width: 480px;
+  padding: 24px 24px 32px;
+}
+.rpg-popup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+}
+.rpg-popup-header button {
+  background: none;
+  border: none;
+  color: #8f9bb3;
+  font-size: 1rem;
+  cursor: pointer;
+}
+.rpg-popup-grade {
+  font-size: 0.85rem;
+  color: #8f9bb3;
+  margin-bottom: 4px;
+}
+.rpg-popup-level {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #ffcc00;
+  margin-bottom: 14px;
+}
+.rpg-popup-bar-wrap {
+  margin-bottom: 16px;
+}
+.rpg-popup-bar {
+  height: 8px;
+  background: #0f1524;
+  border-radius: 99px;
+  overflow: hidden;
+  margin-bottom: 6px;
+}
+.rpg-popup-bar-fill {
+  height: 100%;
+  border-radius: 99px;
+  transition: width 0.4s;
+}
+.rpg-popup-exp {
+  font-size: 0.8rem;
+  color: #6b7a99;
+  text-align: right;
+}
+.rpg-popup-daily {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: #161f35;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  color: #8f9bb3;
+}
+.rpg-popup-next-grade {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: rgba(255, 204, 0, 0.06);
+  border: 1px solid rgba(255, 204, 0, 0.15);
+  border-radius: 10px;
+  font-size: 0.85rem;
+  color: #8f9bb3;
+  margin-top: 8px;
+}
+.rpg-popup-next-grade span:last-child {
+  color: #ffcc00;
+  font-weight: 600;
+}
+.rpg-popup-debuffs {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid #1a253f;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.rpg-popup-debuffs-title {
+  font-size: 0.78rem;
+  color: rgba(231, 76, 60, 0.8);
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.rpg-popup-debuff-item {
+  background: rgba(231, 76, 60, 0.06);
+  border: 1px solid rgba(231, 76, 60, 0.15);
+  border-radius: 10px;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.rpg-popup-debuff-name {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #e74c3c;
+  margin-bottom: 4px;
+}
+.rpg-popup-debuff-row {
+  display: flex;
+  gap: 8px;
+  font-size: 0.78rem;
+  color: #8f9bb3;
+}
+.rpg-popup-debuff-label {
+  color: #6b7a99;
+  min-width: 24px;
+}
+.rpg-popup-debuff-effect {
+  color: #e74c3c;
+  font-weight: 600;
+}

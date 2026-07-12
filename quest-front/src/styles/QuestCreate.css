@@ -1,0 +1,224 @@
+/* 전체 레이아웃 */
+.create-container {
+  min-height: 100vh;
+  background-color: #0d111a;
+  color: #ffffff;
+  font-family: 'Arial', sans-serif;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.create-box {
+  background-color: #1e2640;
+  border-radius: 20px;
+  padding: 25px 20px;
+  width: 100%;
+  margin: 0 auto;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+}
+
+.create-title {
+  color: #ffcc00;
+  font-size: 1.4rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* 상단 메인 탭 */
+.create-tabs {
+  display: flex;
+  background-color: #181f34;
+  border-radius: 10px;
+  padding: 4px;
+  margin-bottom: 20px;
+  gap: 4px;
+}
+
+.create-tab-btn {
+  flex: 1;
+  background: none;
+  border: none;
+  color: #8fa0c4;
+  padding: 10px 0;
+  font-size: 0.85rem;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: all 0.2s;
+}
+
+.create-tab-btn.active {
+  background-color: #2b3554;
+  color: #ffcc00;
+}
+
+/* 폼 입력 레이아웃 */
+.form-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-label {
+  color: #8fa0c4;
+  font-size: 0.85rem;
+  font-weight: bold;
+  margin-bottom: -8px;
+}
+
+.create-input {
+  background-color: #2b3554;
+  border: 1px solid #37456b;
+  border-radius: 10px;
+  color: #ffffff;
+  padding: 14px;
+  font-size: 0.95rem;
+  outline: none;
+}
+
+.create-input:focus {
+  border-color: #ffcc00;
+}
+
+/* 옵션 버튼 그리드 (기간, 스탯, 난이도 등 공통) */
+.option-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.option-grid.triple {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.option-btn {
+  background-color: #2b3554;
+  border: 1px solid #37456b;
+  border-radius: 8px;
+  color: #aebedb;
+  padding: 10px 4px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.2s;
+}
+
+.option-btn:hover {
+  background-color: #354269;
+}
+
+.option-btn.active {
+  border-color: #ffcc00;
+  background-color: rgba(255, 204, 0, 0.1);
+  color: #ffcc00;
+}
+
+/* 락(Lock) 걸린 비활성화 버튼 스타일 */
+.option-btn.locked {
+  background-color: #141a29;
+  border-color: #222b45;
+  color: #53638c;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* 하단 액션 버튼 그룹 */
+.submit-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.submit-main-btn {
+  background-color: #ffcc00;
+  border: none;
+  border-radius: 10px;
+  color: #0d111a;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 14px;
+  width: 100%;
+}
+
+.submit-sub-btn {
+  background-color: #2b3554;
+  border: 1px solid #37456b;
+  border-radius: 10px;
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 0.95rem;
+  padding: 12px;
+  width: 100%;
+}
+
+/* 상단 닫기 X 버튼 전용 스타일 */
+.create-box {
+  position: relative; /* absolute 버튼의 기준점이 될 수 있도록 상위 박스에 필수 선언 */
+}
+
+.close-page-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  color: #627299;
+  font-size: 1.3rem;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 10;
+  transition: color 0.2s ease;
+}
+
+.close-page-btn:hover {
+  color: #ffcc00; /* 마우스 올렸을 때 금색 포인트 반짝임 효과 */
+}
+
+/* 시간 입력창 컴포넌트 래퍼 레이아웃 */
+.time-input-fade-zone {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  background-color: #181f34;
+  padding: 16px;
+  border-radius: 12px;
+  border: 1px dashed #37456b;
+  margin-top: 4px;
+  animation: slideDown 0.25s ease-out;
+}
+
+.time-input-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.time-number-field {
+  width: 100px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: #ffcc00 !important;
+}
+
+.time-unit-label {
+  font-size: 0.95rem;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+/* 아래로 부드럽게 열리는 간결한 애니메이션 효과 */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

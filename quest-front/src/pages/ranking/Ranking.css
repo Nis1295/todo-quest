@@ -1,0 +1,129 @@
+.ranking-container {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0 0 80px;
+  background: #0f1b2d;
+  min-height: 100vh;
+  color: #fff;
+}
+
+.ranking-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 20px 16px 12px;
+  border-bottom: 1px solid #1e3a5f;
+}
+
+.ranking-header h2 {
+  font-size: 18px;
+  color: #f0c040;
+  margin: 0;
+}
+
+.back-btn {
+  background: none;
+  border: none;
+  color: #f0c040;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* 내 랭킹 카드 */
+.my-rank-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 16px;
+  padding: 14px 16px;
+  background: #1e3a5f;
+  border: 1px solid #f0c040;
+  border-radius: 10px;
+}
+
+.my-rank-label {
+  font-size: 11px;
+  color: #f0c040;
+  background: #0f1b2d;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.my-rank-num {
+  font-size: 16px;
+  font-weight: 700;
+  color: #f0c040;
+}
+.my-rank-name {
+  flex: 1;
+  font-size: 14px;
+}
+.my-rank-point {
+  font-size: 13px;
+  color: #a0c4ff;
+}
+
+/* 랭킹 리스트 */
+.ranking-list {
+  padding: 0 16px;
+}
+
+.ranking-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  margin-bottom: 8px;
+  background: #161b22;
+  border-radius: 10px;
+  border: 1px solid #1e3a5f;
+}
+
+.ranking-item.me {
+  border-color: #f0c040;
+  background: #1e3a5f;
+}
+
+.rank-num {
+  width: 36px;
+  font-size: 18px;
+  text-align: center;
+  font-weight: 700;
+  color: #f0c040;
+}
+.rank-name {
+  flex: 1;
+  font-size: 14px;
+}
+.rank-point {
+  font-size: 13px;
+  color: #a0c4ff;
+}
+
+.ranking-bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 480px;
+  display: flex;
+  background: rgba(15, 20, 40, 0.95);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.ranking-bottom-nav button {
+  flex: 1;
+  padding: 14px 0;
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.ranking-bottom-nav button.active {
+  color: #f0c040;
+  font-weight: 700;
+}

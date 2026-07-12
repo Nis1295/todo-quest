@@ -1,0 +1,201 @@
+/* 독립 마이페이지 전체 컨테이너 배경 구조 */
+.my-info-page-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #121624;
+  color: #ffffff;
+  font-family: 'Arial', sans-serif;
+  padding: 24px 20px 100px 20px;
+  box-sizing: border-box;
+  position: relative;
+}
+
+/* 기획 명세: 상단 고정 저장 완료 안내 토스트 디자인 */
+.toast-success-alert-bar {
+  position: fixed;
+  top: 14px; left: 5%; right: 5%;
+  background-color: #1e3a8a; 
+  border-left: 5px solid #2ecc71; 
+  border-radius: 8px;
+  padding: 14px 20px;
+  z-index: 9999;
+  text-align: left;
+  font-weight: bold;
+  font-size: 0.95rem;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+  animation: fadeInDown 0.3s ease-out;
+}
+
+/* 상단 타이틀 헤더바 */
+.my-info-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.header-back-arrow {
+  background: none; border: none; color: #8fa0c4;
+  font-size: 0.95rem; font-weight: bold; cursor: pointer;
+}
+.header-main-title { font-size: 1.2rem; font-weight: bold; margin: 0; }
+
+/* 메인 카드 패널 */
+.my-info-content-card {
+  background-color: #1a1f33;
+  border-radius: 24px;
+  padding: 26px 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.section-meta-title {
+  color: #ffcc00; 
+  font-size: 0.95rem;
+  font-weight: bold;
+  text-align: left;
+  margin: 0 0 14px 2px;
+  border-left: 3px solid #ffcc00;
+  padding-left: 8px;
+}
+
+/* 아바타 조작존 */
+.avatar-uploader-center-zone {
+  display: flex; flex-direction: column; align-items: center; margin-bottom: 24px;
+}
+.avatar-circle-wrapper {
+  position: relative; width: 90px; height: 90px; border-radius: 50%;
+  background-color: #242b47; border: 2px solid #37456b;
+  display: flex; align-items: center; justify-content: center; cursor: pointer;
+  overflow: hidden;
+}
+.avatar-render-img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+.avatar-fallback-swords { font-size: 2.3rem; }
+.avatar-edit-pencil-badge {
+  position: absolute; bottom: 0; right: 0; width: 26px; height: 26px;
+  background-color: #ffcc00; border-radius: 50%; font-size: 0.9rem;
+  display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+}
+.avatar-hidden-file-input { display: none; }
+.avatar-guide-hint-text { color: #53638c; font-size: 0.75rem; margin-top: 6px; font-weight: bold; }
+
+/* 인풋 행 디자인 */
+.info-input-row-block { display: flex; flex-direction: column; gap: 8px; text-align: left; }
+.info-label-flex-line { display: flex; justify-content: space-between; align-items: center; }
+.info-field-label { color: #8fa0c4; font-size: 0.88rem; font-weight: bold; }
+.info-change-count-text { font-size: 0.78rem; color: #53638c; font-weight: bold; }
+.info-change-count-text strong.danger-count { color: #ff4d4d; }
+
+/* 에디터 필드 아웃라인 */
+.my-profile-editable-input {
+  background-color: #121624;
+  border: 1px solid #242b47;
+  border-radius: 12px;
+  color: #ffffff;
+  padding: 14px;
+  font-size: 0.95rem;
+  font-weight: bold;
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
+}
+.my-profile-editable-input:focus { border-color: #ffcc00; }
+
+.my-profile-editable-textarea {
+  background-color: #121624;
+  border: 1px solid #242b47;
+  border-radius: 12px;
+  color: #ffffff;
+  padding: 14px;
+  font-size: 0.95rem;
+  font-weight: bold;
+  outline: none;
+  min-height: 80px;
+  resize: none;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.point-purchase-warning-msg { color: #ff4d4d; font-size: 0.8rem; font-weight: bold; margin: 0; }
+.my-info-mbti-dropdown-select {
+  background-color: #121624; border: 1px solid #242b47; border-radius: 12px;
+  color: #ffffff; padding: 14px; font-size: 0.95rem; font-weight: bold; outline: none; width: 100%;
+}
+
+/* 메인 스탯 선택 그리드 */
+.profile-stat-select-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-top: 4px;
+}
+.profile-stat-card-item {
+  background-color: #121624;
+  border: 1px solid #242b47;
+  border-radius: 10px;
+  padding: 14px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 0.9rem;
+  cursor: pointer;
+  color: #8fa0c4;
+  transition: all 0.2s ease;
+}
+.profile-stat-card-item.active.str-mode { border-color: #e74c3c; color: #e74c3c; background-color: rgba(231, 76, 60, 0.05); }
+.profile-stat-card-item.active.int-mode { border-color: #3498db; color: #3498db; background-color: rgba(52, 152, 219, 0.05); }
+.profile-stat-card-item.active.wil-mode { border-color: #8B5CF6; color: #8B5CF6; background-color: rgba(139, 92, 246, 0.05); }
+.profile-stat-card-item.active.vit-mode { border-color: #2ecc71; color: #2ecc71; background-color: rgba(46, 204, 113, 0.05); }
+
+/* 패스워드 폼 */
+.password-toggle-form-btn {
+  background-color: #242b47; border: 1px solid #37456b; color: #ffffff;
+  padding: 12px; border-radius: 10px; font-weight: bold; font-size: 0.9rem; cursor: pointer; width: 100%; text-align: left;
+}
+.password-embedded-inputs-zone {
+  display: flex; flex-direction: column; gap: 10px; background-color: #121624; padding: 14px; border-radius: 12px; margin-top: 10px;
+}
+.password-submit-execute-btn {
+  background-color: #37456b; color: #fff; border: none; padding: 10px; border-radius: 6px; font-weight: bold; cursor: pointer;
+}
+
+/* 황금색 대형 저장 버튼 */
+.profile-submit-mega-btn {
+  background-color: #ffcc00;
+  color: #0d111a;
+  border: none;
+  border-radius: 14px;
+  padding: 16px;
+  width: 100%;
+  font-size: 1.1rem;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(255, 204, 0, 0.3);
+}
+.profile-submit-mega-btn:hover { background-color: #e6b800; }
+
+/* 하단 네비바 고정 */
+.bottom-nav {
+  position: fixed;
+  bottom: 0; left: 0; right: 0; height: 64px;
+  background-color: #0d111a; border-top: 1px solid #1e2640;
+  display: flex; justify-content: space-around; align-items: center; z-index: 100;
+}
+
+.nav-item {
+  background: none;
+  border: none;
+  color: #627299;
+  font-size: 0.85rem;
+  font-weight: bold;
+  cursor: pointer;
+  flex: 1;
+  text-align: center;
+  padding: 8px;
+}
+.nav-item.active {
+  color: #ffcc00;
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

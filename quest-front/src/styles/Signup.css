@@ -1,0 +1,180 @@
+
+.signup-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: radial-gradient(circle at center, #1a233a 0%, #0d111a 100%);
+  font-family: 'Arial', sans-serif;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.signup-box {
+  background-color: #1e2640;
+  border-radius: 20px;
+  padding: 35px 25px;
+  width: 100%;
+  max-width: 380px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+  box-sizing: border-box;
+}
+
+.signup-header {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.signup-title {
+  color: #ffcc00;
+  font-size: 1.6rem;
+  font-weight: 800;
+  margin-bottom: 4px;
+}
+
+.signup-step-indicator {
+  color: #8fa0c4;
+  font-size: 0.85rem;
+}
+
+/* 입력 폼 공통 스타일 */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.signup-label {
+  color: #8fa0c4;
+  font-size: 0.85rem;
+  margin-bottom: -6px;
+  font-weight: bold;
+}
+
+.signup-input, .signup-select {
+  background-color: #2b3554;
+  border: 1px solid #37456b;
+  border-radius: 10px;
+  color: #ffffff;
+  padding: 14px;
+  font-size: 0.95rem;
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+}
+
+.signup-input:focus, .signup-select:focus {
+  border-color: #ffcc00;
+}
+
+.signup-input::placeholder {
+  color: #627299;
+}
+
+/* 라디오 버튼 그룹 (크로노타입) */
+.radio-group {
+  display: flex;
+  gap: 20px;
+  padding: 5px 0;
+}
+
+.radio-label {
+  color: #ffffff;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.radio-label input[type="radio"] {
+  accent-color: #ffcc00;
+  width: 16px;
+  height: 16px;
+}
+
+/* 메인 스탯 카드 그리드 정의 */
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-top: 6px;
+}
+
+.stat-card {
+  background-color: #252e4d;
+  border: 2px solid #37456b;
+  border-radius: 12px;
+  padding: 16px 10px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.stat-card .stat-icon {
+  font-size: 1.5rem;
+}
+
+.stat-card .stat-name {
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: #8fa0c4;
+}
+
+.stat-card .stat-desc {
+  font-size: 0.75rem;
+  color: #627299;
+}
+
+/* 기획서 명시 스탯 활성화 색상 커스텀 */
+.stat-card.active.STR { border-color: #e74c3c; background-color: rgba(231, 76, 60, 0.1); }
+.stat-card.active.STR .stat-name { color: #e74c3c; }
+
+.stat-card.active.INT { border-color: #3498db; background-color: rgba(52, 152, 219, 0.1); }
+.stat-card.active.INT .stat-name { color: #3498db; }
+
+.stat-card.active.WIL { border-color: #8B5CF6; background-color: rgba(139, 92, 246, 0.1); }
+.stat-card.active.WIL .stat-name { color: #8B5CF6; }
+
+.stat-card.active.VIT { border-color: #2ecc71; background-color: rgba(46, 204, 113, 0.1); }
+.stat-card.active.VIT .stat-name { color: #2ecc71; }
+
+/* 하단 내비게이션 버튼 */
+.button-group {
+  display: flex;
+  gap: 10px;
+}
+
+.signup-button {
+  background-color: #ffcc00;
+  border: none;
+  border-radius: 10px;
+  color: #0d111a;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 14px;
+  width: 100%;
+  transition: background-color 0.2s;
+}
+
+.signup-button:hover {
+  background-color: #e6b800;
+}
+
+.signup-button.secondary {
+  background-color: #2b3554;
+  border: 1px solid #37456b;
+  color: #ffffff;
+}
+
+.signup-button.secondary:hover {
+  background-color: #354269;
+}

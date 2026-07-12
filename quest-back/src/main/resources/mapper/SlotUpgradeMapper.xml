@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.cloud.mapper.SlotUpgradeMapper">
+
+    <!-- 특정 기간의 현재 확장 횟수 조회 -->
+    <select id="countByUserIdAndPeriod" resultType="int">
+        SELECT COUNT(*)
+        FROM slot_upgrades
+        WHERE user_id = #{userId}
+          AND period  = #{period}
+    </select>
+
+    <!-- 슬롯 확장 이력 저장 -->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="upgradeId">
+        INSERT INTO slot_upgrades (user_id, period, upgrade_count, cost_point)
+        VALUES (#{userId}, #{period}, #{upgradeCount}, #{costPoint})
+    </insert>
+
+</mapper>

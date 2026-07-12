@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quest App MVP</title>
+  <style>
+    .slider-container {
+      flex: 1;
+      overflow: hidden;
+      /* 👈 옆 화면을 숨겨주는 핵심 코드 */
+      width: 100%;
+      position: relative;
+    }
+
+    :root {
+      --bg: #0b0f19;
+      --card: #161c2e;
+      --accent: #3b82f6;
+      --text: #fff;
+      --muted: #94a3b8;
+    }
+
+    body {
+      margin: 0;
+      background: #000;
+      color: var(--text);
+      font-family: sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .phone {
+      width: 380px;
+      height: 680px;
+      background: var(--bg);
+      border-radius: 30px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      border: 4px solid #333;
+      position: relative;
+    }
+
+    .header {
+      padding: 15px;
+      text-align: center;
+      background: rgba(0, 0, 0, 0.3);
+      font-size: 14px;
+      font-weight: bold;
+      color: var(--accent);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .slider {
+      display: flex;
+      transition: transform 0.3s ease-in-out;
+      width: 300%;
+      height: 100%;
+    }
+
+    .screen {
+      width: 380px;
+      height: 100%;
+      padding: 20px;
+      box-sizing: border-box;
+      overflow-y: auto;
+      flex-shrink: 0;
+      /* 👈 화면이 찌그러지거나 잘리지 않게 고정 */
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: 12px;
+      padding: 15px;
+      margin-bottom: 15px;
+    }
+
+    h2,
+    h3 {
+      margin: 0 0 10px 0;
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #2e3748;
+      background: #1e2640;
+      color: #fff;
+      box-sizing: border-box;
+      margin-bottom: 10px;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      border-radius: 6px;
+      border: none;
+      background: var(--accent);
+      color: #fff;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .quest-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px;
+      background: #1e2640;
+      border-radius: 8px;
+      margin-bottom: 8px;
+    }
+
+    .xp-tag {
+      color: #f59e0b;
+      font-weight: bold;
+      font-size: 13px;
+    }
+
+    .nav-bar {
+      height: 60px;
+      background: #111726;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .nav-item {
+      color: var(--muted);
+      font-size: 11px;
+      cursor: pointer;
+      text-align: center;
+      flex: 1;
+    }
+
+    .nav-item.active {
+      color: var(--accent);
+      font-weight: bold;
+    }
+
+    .nav-item span {
+      display: block;
+      font-size: 16px;
+    }
+
+    .avatar-area {
+      display: flex;
+      justify-content: center;
+      margin: 20px 0;
+    }
+
+    .avatar-circle {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: #1e2640;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 48px;
+      border: 2px solid #3b82f6;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 20px;
+      margin-right: 6px;
+      margin-bottom: 10px;
+      font-size: 12px;
+    }
+
+    .badge.green {
+      background: #10b981;
+    }
+
+    .badge.red {
+      background: #ef4444;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="phone">
+    <div class="header" id="scrTitle">🔐 계정 인증 및 접속</div>
+    <div class="slider-container">
+
+      <div class="slider" id="scrSlider">
+
+        <!-- 화면 1: RPG 상태창 -->
+        <div class="screen">
+          <div style="font-size:12px; color:var(--muted)">Lv. 26</div>
+          <h2 id="userNickname">나의 캐릭터</h2>
+          <div style="height:6px; background:#2e3748; border-radius:3px; margin: 10px 0 20px 0; overflow:hidden;">
+            <!-- 바 -->
+            <div style="width:65%; height:100%; background:linear-gradient(90deg, #f59e0b, #ef4444);"></div>
+          </div>
+          <div class="avatar-area">
+            <div class="avatar-circle">⚔️</div>
+          </div>
+          <div id="buffArea"></div>
+          <div class="card">
+            <div style="display:flex; justify-content:space-between; margin-bottom:8px;"><span>STR 체력</span>
+              <strong style="color:#ef4444" id="str">운동선수</strong>
+            </div>
+            <div style="display:flex; justify-content:space-between; margin-bottom:8px;"><span>INT 지력</span>
+              <strong style="color:#3b82f6" id="int">초등</strong>
+            </div>
+            <div style="display:flex; justify-content:space-between; margin-bottom:8px;"><span>WIL 의지력</span>
+              <strong style="color:#10b981" id="wil">새싹</strong>
+            </div>
+            <div style="display:flex; justify-content:space-between;"><span>GOLD 재력</span>
+              <strong style="color:#f59e0b" id="gold">I(허약)</strong>
+            </div>
+          </div>
+          <button onclick="logout()" style="background:#ef4444;margin-top:10px;">
+            로그아웃
+          </button>
+        </div>
+
+        <!-- 화면 2: 투두리스트 메인 (컨트롤러 3, 4) -->
+        <div class="screen">
+          <div style="font-size:12px; color:var(--muted)" id="currentDate">오늘 날짜</div>
+          <h2>오늘의 퀘스트</h2>
+          <div class="card" style="background:#1e293b; padding:10px;">
+            <input type="text" id="qTitle" placeholder="새로운 퀘스트 입력" style="margin-bottom:5px;">
+            <select id="qPeriod">
+              <option value="DAILY">DAILY</option>
+              <option value="WEEKLY">WEEKLY</option>
+            </select>
+            <button onclick="handleCreateQuest()">➕ 퀘스트 추가</button>
+          </div>
+          <div id="questListArea">
+            <p style="text-align:center; color:var(--muted); font-size:13px;">로그인 후 조회가 가능합니다.</p>
+          </div>
+        </div>
+
+        <!-- 화면 3: 글로벌 랭킹 -->
+        <div class="screen">
+          <h2>글로벌 랭킹</h2>
+          <div class="card" style="background:rgba(59,130,246,0.1); border:1px solid var(--accent); margin-top:10px;">
+            <div style="font-size:12px; color:var(--muted)">내 순위</div>
+            <div style="font-size:22px; font-weight:bold; color:var(--accent)"># 1,247위</div>
+          </div>
+          <div class="quest-item"><span>1 🥇 KimHero (전사)</span><span class="xp-tag">12,480 pt</span></div>
+          <div class="quest-item"><span>2 🥈 ParkStar (박사)</span><span class="xp-tag">11,920 pt</span></div>
+          <div class="quest-item"><span>3 🥉 LeeRunner (마라토너)</span><span class="xp-tag">10,750 pt</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-bar">
+      <div class="nav-item" onclick="goToScreen(0)" id="nav1"><span>👤</span>상태창</div>
+      <div class="nav-item" onclick="goToScreen(1)" id="nav2"><span>📋</span>퀘스트</div>
+      <div class="nav-item" onclick="goToScreen(2)" id="nav3"><span>🏆</span>랭킹</div>
+    </div>
+  </div>
+  <script>
+    window.onload = async () => {
+
+      try {
+
+        const res = await fetch('/api/auth/check');
+
+        if (!res.ok) {
+          location.href = '/login';
+          return;
+        }
+
+        const data = await res.json();
+
+        currentUserId = data.userId;
+
+        await loadStats();
+
+        goToScreen(0);
+
+      } catch (e) {
+
+        location.href = '/login';
+      }
+    };
+
+    let currentUserId = null;
+    const titles = ["👤 RPG 상태창", "📋 메인 (기본 화면)", "🏆 스와이프 (랭킹)"];
+
+    function goToScreen(idx) {
+
+      document.getElementById('scrSlider').style.transform =
+        `translateX(-${idx * 380}px)`;
+
+      document.getElementById('scrTitle').innerText =
+        titles[idx];
+
+      for (let i = 0; i <= 2; i++) {
+
+        const nav = document.getElementById(`nav${i}`);
+
+        if (nav) {
+          nav.classList.toggle('active', i === idx);
+        }
+      }
+
+      if (idx === 1 && currentUserId) {
+        loadQuests();
+      }
+    }
+
+    // 1. 회원가입 연동 (수정 보완된 버전)    
+    async function handleSignup() {
+      const email = document.getElementById('regEmail').value;
+      const password = document.getElementById('regPw').value;
+      const nickname = document.getElementById('regNick').value;
+
+      if (!email || !password || !nickname) {
+        return alert('이메일, 비밀번호, 닉네임을 모두 입력하세요.');
+      }
+
+      try {
+        const res = await fetch('/api/auth/signup', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email: email,
+            password: password,
+            nickname: nickname,
+            birthYear: "2000",
+            mbti: 'INTP',
+            chronotype: 'MORNING'
+          })
+        });
+
+        // 서버 응답 분석
+        const data = await res.json();
+
+        if (res.ok) {
+          // 성공 시 서버가 보낸 {"message": "회원가입 성공"} 출력
+          alert(data.message || "회원가입 성공!");
+        } else {
+          // 실패 시 (이메일 중복 등) 서버가 보낸 에러 메시지 출력
+          alert("실패 원인: " + (data.message || "서버 유효성 오류"));
+        }
+
+      } catch (e) {
+        alert('회원가입 실패: 서버 연결 상태를 확인하세요.');
+      }
+    }
+
+    // 2. 로그인 연동
+    async function handleLogin() {
+      const email = document.getElementById('loginEmail').value;
+      const password = document.getElementById('loginPw').value;
+      try {
+        const res = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password })
+        });
+        if (!res.ok) { const err = await res.json(); return alert(err.message); }
+        const user = await res.json();
+        currentUserId = user.userId;
+        document.getElementById('userNickname').innerText = `${user.nickname}의 캐릭터`;
+        await loadStats();
+        alert('로그인 성공!');
+        goToScreen(1);
+      } catch (e) { alert('로그인 오류'); }
+    }
+
+    // 3. 퀘스트 추가 연동
+    async function handleCreateQuest() {
+      if (!currentUserId) return alert('로그인 세션 정보가 부족합니다. 로그인 후 진입해 주세요.');
+
+      const title = document.getElementById('qTitle').value.trim();
+      const period = document.getElementById('qPeriod').value;
+
+      if (!title) return alert('퀘스트 이름을 작성하세요.');
+
+      try {
+        const res = await fetch('/api/quests', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            userId: currentUserId,
+            title: title,
+            period: period,
+            statType: 'STR',          // 👈 'HEALTH' 대신 자바 Buff/Quest에 명시된 'STR'로 변경
+            xpSize: 'MEDIUM',         // 👈 Quest.java 필수 값 추가 (SMALL, MEDIUM, LARGE)
+            verifyType: 'PHOTO',
+            notifyType: 'BANNER',     // 👈 Quest.java 필수 값 추가 (NONE, BANNER, FULLSCREEN)
+            notifyTab: period,        // 👈 Quest.java 필수 값 추가
+            showCard: true,
+            template: false,
+            active: true
+          })
+        });
+
+        if (res.ok) {
+          document.getElementById('qTitle').value = '';
+          loadQuests(); // 생성 성공 시 목록 즉시 리로드
+          alert('퀘스트가 성공적으로 생성되었습니다!');
+        } else {
+          // 실패 시 백엔드가 준 에러 메시지 텍스트 출력
+          const errText = await res.text();
+          alert('생성 실패 (서버 오류): ' + errText);
+        }
+      } catch (e) {
+        alert('생성 실패: 백엔드 서버 연결 상태를 확인하세요.');
+      }
+    }
+
+    // 4. 퀘스트 조회 연동
+    async function loadQuests() {
+      const area = document.getElementById('questListArea');
+      try {
+        const res = await fetch(`/api/quests/${currentUserId}?period=DAILY`);
+        const list = await res.json();
+        area.innerHTML = '';
+        if (list.length === 0) { area.innerHTML = '<p style="text-align:center;color:var(--muted)">오늘의 퀘스트가 없습니다.</p>'; return; }
+        list.forEach(q => {
+          const div = document.createElement('div');
+          div.className = 'quest-item';
+          div.innerHTML = `<div><input type="checkbox" style="width:auto;margin-right:8px;" onclick="handleComplete(${q.id})"><span>${q.title}</span></div><span class="xp-tag">+30 XP</span>`;
+          area.appendChild(div);
+        });
+      } catch (e) { area.innerHTML = '<p style="text-align:center;color:red">로딩 오류</p>'; }
+    }
+
+    async function loadStats() {
+
+      if (!currentUserId) return;
+
+      try {
+
+        const res = await fetch(`/api/stats/${currentUserId}`);
+
+        if (!res.ok) throw new Error();
+
+        const data = await res.json();
+
+        document.getElementById("userNickname").innerText =
+          `${data.nickname}의 캐릭터`;
+
+        document.getElementById("str").innerText =
+          data.str.grade;
+
+        document.getElementById("int").innerText =
+          data.int.grade;
+
+        document.getElementById("wil").innerText =
+          data.wil.grade;
+
+        document.getElementById("gold").innerText =
+          data.vit.grade;
+
+      } catch (e) {
+
+        console.error(e);
+
+      }
+    }
+
+    // 5. 퀘스트 완료 처리 연동
+    async function handleComplete(id) {
+      try {
+        const res = await fetch(`/api/quests/${id}/complete`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ userId: currentUserId, verifyType: 'PHOTO' })
+        });
+        const data = await res.json();
+        alert(data.message);
+        loadQuests();
+      } catch (e) { alert('완료 실패'); }
+    }
+
+    document.getElementById('currentDate').innerText = new Date().toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' });
+
+    async function logout() {
+
+      try {
+
+        await fetch('/api/auth/logout', {
+          method: 'POST'
+        });
+
+      } finally {
+
+        location.href = '/login';
+      }
+    }
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,134 @@
+/* 전체 바디 컨테이너 */
+.ranking-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #0d111a;
+  color: #ffffff;
+  font-family: 'Arial', sans-serif;
+  padding: 20px 16px 80px 16px; /* 하단 네비게이션 공간 확보 */
+  box-sizing: border-box;
+}
+
+/* 상단 타이틀 바 헤더 */
+.ranking-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+.back-btn {
+  background: none; border: none; color: #8fa0c4;
+  font-size: 1.2rem; cursor: pointer;
+}
+.ranking-page-title {
+  font-size: 1.15rem; font-weight: bold; color: #ffcc00; margin: 0;
+}
+
+/* 기획서 명세 사양: 내 순위 상단 강조 박스 */
+.my-rank-fixed-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #16223f;
+  border: 1.5px solid #387ffd; /* 시안 고유 블루 테두리 반영 */
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 15px rgba(56, 127, 253, 0.2);
+}
+.my-rank-highlight { color: #ffcc00; font-weight: 800; font-size: 1rem; flex: 1.5; }
+.my-rank-name { font-weight: bold; color: #ffffff; flex: 3; text-align: left; }
+.my-rank-level { color: #8fa0c4; font-size: 0.85rem; flex: 1.5; text-align: left; }
+.my-rank-points { color: #ffcc00; font-weight: bold; flex: 3; text-align: right; }
+
+/* 랭킹 리스트 스크롤 영역 */
+.ranking-scroll-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.ranking-list-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* 일반 랭킹 단일 행 카드 */
+.ranking-row-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #1e2640;
+  border: 1px solid #2b3554;
+  border-radius: 10px;
+  padding: 14px 16px;
+  box-sizing: border-box;
+  transition: transform 0.2s ease;
+}
+
+/* 리스트 속 내 위치 하이라이트 효과 */
+.ranking-row-card.highlight-me {
+  border-color: #ffcc00;
+  background-color: rgba(255, 204, 0, 0.05);
+}
+
+/* 카드 내부 좌우 정렬 레이아웃 */
+.rank-left-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.rank-medal {
+  font-size: 1.4rem;
+  width: 34px;
+  text-align: center;
+}
+.rank-number {
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: #ffcc00; /* 4위 이하는 노란 텍스트 명세 준수 */
+  width: 34px;
+  text-align: center;
+}
+.rank-user-name {
+  font-size: 0.95rem;
+  font-weight: bold;
+  color: #ffffff;
+}
+.rank-user-level {
+  font-size: 0.8rem;
+  color: #627299;
+}
+.rank-user-points {
+  font-size: 0.95rem;
+  font-weight: bold;
+  color: #aebedb;
+}
+
+/* 하단 내비게이션 바 고정 레이아웃 */
+.bottom-nav {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  height: 64px;
+  background-color: #141a29;
+  border-top: 1px solid #222b45;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 100;
+}
+.nav-item {
+  background: none;
+  border: none;
+  color: #627299;
+  font-size: 0.85rem;
+  font-weight: bold;
+  cursor: pointer;
+  flex: 1;
+  text-align: center;
+  padding: 8px;
+}
+.nav-item.active {
+  color: #ffcc00;
+}

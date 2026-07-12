@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.cloud.mapper.UserMapper">
+
+    <!-- 자정 디버프 랜덤 발동 스케줄러용: 전체 유저 ID -->
+    <select id="findAllUserIds" resultType="Long">
+        SELECT user_id FROM users
+    </select>
+
+    <!-- 회원 가입 -->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="userId">
+    INSERT INTO users (email, password, nickname, birth_year, mbti, chronotype, main_stat)
+    VALUES (#{email}, #{password}, #{nickname}, #{birthYear}, #{mbti}, #{chronotype}, #{mainStat})
+</insert>
+
+    <!-- 이메일로 회원 조회 -->
+<select id="findByEmail" parameterType="String" resultType="org.cloud.domain.User">
+    SELECT user_id AS userId, email, password, nickname, birth_year AS birthYear,
+           mbti, chronotype, total_point AS totalPoint, main_stat AS mainStat,
+           profile_image AS profileImage, likes, dislikes, goal,
+           created_at AS createdAt, updated_at AS updatedAt,
+           nickname_change_count AS nicknameChangeCount,
+           daily_point AS dailyPoint
+    FROM users
+    WHERE email = #{email}
+</select>
+
+    <!-- ID로 회원 조회 -->
+<select id="findById" parameterType="Long" resultType="org.cloud.domain.User">
+    SELECT user_id AS userId, email, password, nickname, birth_year AS birthYear,
+           mbti, chronotype, total_point AS totalPoint, main_stat AS mainStat,
+           profile_image AS profileImage, likes, dislikes, goal,
+           created_at AS createdAt, updated_at AS updatedAt,
+           nickname_change_count AS nicknameChangeCount,
+           daily_point AS dailyPoint
+    FROM users
+    WHERE user_id = #{userId}
+</select>
+
+    <!-- 포인트 증감 (누적 totalPoint만 변경, dailyPoint와 무관하게 사용되는 범용 메서드) -->
+    <update id="updatePoint">
+        UPDATE users
+        SET total_point = total_point + #{amount}
+        WHERE user_id = #{userId}
+    </update>
+
+    <!-- 일일 한도 체크를 거친 포인트 적립: totalPoint + dailyPoint 동시 증가 -->
+    <update id="addDailyPoint">
+        UPDATE users
+        SET total_point = total_point + #{amount},
+            daily_point  = daily_point + #{amount}
+        WHERE user_id = #{userId}
+    </update>
+
+    <!-- 매일 자정 일일 포인트 리셋 -->
+    <update id="resetAllDailyPoint">
+        UPDATE users SET daily_point = 0
+    </update>
+
+
+    <!--
+        전체 포인트 기준 랭킹 조회
+        순위(rank), 닉네임, 포인트, 메인레벨(나이) 반환
+    -->
+    <select id="findRanking" resultType="java.util.LinkedHashMap">
+    SELECT
+        RANK() OVER (ORDER BY total_point DESC) AS `rank`,
+        user_id        AS userId,
+        nickname,
+        total_point    AS totalPoint,
+        (YEAR(CURDATE()) - birth_year) AS mainLevel
+        
+    FROM users
+    ORDER BY total_point DESC
+    LIMIT #{limit}
+</select>
+ <!-- 내 순위 조회 -->
+<select id="findMyRank" parameterType="Long" resultType="java.util.LinkedHashMap">
+    SELECT `rank`, userId, nickname, totalPoint, mainLevel
+    FROM (
+        SELECT
+            RANK() OVER (ORDER BY total_point DESC) AS `rank`,
+            user_id        AS userId,
+            nickname,
+            total_point    AS totalPoint,
+            (YEAR(CURDATE()) - birth_year) AS mainLevel
+        FROM users
+    ) ranked
+    WHERE userId = #{userId}
+</select>
+
+<!-- 프로필 수정 -->
+<update id="updateProfile">
+    UPDATE users
+    SET nickname      = #{nickname},
+        mbti          = #{mbti},
+        chronotype    = #{chronotype},
+        main_stat     = #{mainStat},
+        likes         = #{likes},
+        dislikes      = #{dislikes},
+        goal          = #{goal},
+        profile_image = #{profileImage},
+        nickname_change_count = #{nicknameChangeCount}
+    WHERE user_id = #{userId}
+</update>
+
+<!-- 비밀번호 변경 -->
+<update id="updatePassword">
+    UPDATE users
+    SET password = #{password}
+    WHERE user_id = #{userId}
+</update>
+
+<!-- 닉네임 변경 횟수 차감 -->
+<update id="decreaseNicknameCount" parameterType="Long">
+    UPDATE users
+    SET nickname_change_count = nickname_change_count - 1
+    WHERE user_id = #{userId}
+    AND nickname_change_count > 0
+</update>
+
+</mapper>

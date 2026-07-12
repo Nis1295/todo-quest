@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.cloud.mapper.BuffMapper">
+
+    <!-- 특정 유저의 활성 버프/디버프 전체 조회 -->
+    <select id="findByUserId" parameterType="Long" resultType="org.cloud.domain.Buff">
+        SELECT buff_id, user_id, buff_type, name, stat_type, effect_pct, expires_at, created_at
+       FROM buffs
+		WHERE user_id=#{userId}
+		AND (
+		    expires_at IS NULL
+		    OR expires_at &gt; NOW()
+		)
+		ORDER BY created_at DESC
+    </select>
+
+    <!-- 이름으로 단건 조회 (중복 발동 방지) -->
+    <select id="findByUserIdAndName" resultType="org.cloud.domain.Buff">
+        SELECT buff_id, user_id, buff_type, name, stat_type, effect_pct, expires_at, created_at
+        FROM buffs
+	
+		WHERE user_id=#{userId}
+		AND name=#{name}
+		
+		AND (
+		
+		expires_at IS NULL
+		
+		OR expires_at &gt; NOW()
+		
+		)
+		
+		LIMIT 1
+    </select>
+
+    <!-- 버프/디버프 발동 -->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="buffId">
+        INSERT INTO buffs (user_id, buff_type, name, stat_type, effect_pct, expires_at)
+        VALUES (#{userId}, #{buffType}, #{name}, #{statType}, #{effectPct}, #{expiresAt})
+    </insert>
+
+    <!-- 버프/디버프 해제 (이름 기준) -->
+    <delete id="deleteByUserIdAndName">
+        DELETE FROM buffs
+        WHERE user_id = #{userId}
+          AND name    = #{name}
+    </delete>
+
+    <!-- 가장 오래된 디버프 1개 해제 (완전회복 버프 효과) -->
+    <delete id="deleteOldestDebuff">
+        DELETE FROM buffs
+        WHERE buff_id = (
+            SELECT buff_id FROM (
+                SELECT buff_id FROM buffs
+                WHERE user_id  = #{userId}
+                  AND buff_type = 'DEBUFF'
+                ORDER BY created_at ASC
+                LIMIT 1
+            ) AS oldest
+        )
+    </delete>
+
+    <!-- 특정 스탯 관련 활성 버프/디버프 조회 (XP 계산용) -->
+    <select id="findActiveByUserIdAndStatType" resultType="org.cloud.domain.Buff">
+    SELECT buff_id, user_id, buff_type, name, stat_type,
+           effect_pct, expires_at, created_at
+    FROM buffs
+    WHERE user_id = #{userId}
+      AND (stat_type = #{statType} OR stat_type = 'ALL')
+      AND (
+            expires_at IS NULL
+            OR expires_at &gt; NOW()
+      )
+</select>
+
+    <!-- ── 디버프 재설계(랜덤 발동 + 사진인증 해제) 관련 ── -->
+
+    <!-- buffId로 단건 조회 -->
+    <select id="findById" parameterType="Long" resultType="org.cloud.domain.Buff">
+        SELECT buff_id, user_id, buff_type, name, stat_type, effect_pct, expires_at, created_at,
+               linked_quest_id AS linkedQuestId, progress
+        FROM buffs
+        WHERE buff_id = #{buffId}
+    </select>
+
+    <!-- 유저의 활성 스탯 디버프 목록 (나태함=ALL 제외, 최대 2개 카운트용) -->
+    <select id="findActiveStatDebuffsByUserId" parameterType="Long" resultType="org.cloud.domain.Buff">
+        SELECT buff_id, user_id, buff_type, name, stat_type, effect_pct, expires_at, created_at,
+               linked_quest_id AS linkedQuestId, progress
+        FROM buffs
+        WHERE user_id   = #{userId}
+          AND buff_type = 'DEBUFF'
+          AND stat_type IN ('STR', 'INT', 'WIL', 'VIT')
+    </select>
+
+    <!-- 해제미션 지정/변경 -->
+    <update id="updateLinkedQuest">
+        UPDATE buffs
+        SET linked_quest_id = #{questId},
+            progress        = 0
+        WHERE buff_id = #{buffId}
+    </update>
+
+    <!-- 해제미션 연속완료 진행도 +1 -->
+    <update id="incrementProgress" parameterType="Long">
+        UPDATE buffs
+        SET progress = progress + 1
+        WHERE buff_id = #{buffId}
+    </update>
+
+    <!-- 유저 + 퀘스트ID로 linked_quest_id 매칭되는 활성 디버프 조회 -->
+    <select id="findByUserIdAndLinkedQuestId" resultType="org.cloud.domain.Buff">
+        SELECT buff_id, user_id, buff_type, name, stat_type, effect_pct, expires_at, created_at,
+               linked_quest_id AS linkedQuestId, progress
+        FROM buffs
+        WHERE user_id         = #{userId}
+          AND linked_quest_id = #{questId}
+        LIMIT 1
+    </select>
+
+    <!-- buffId로 삭제 (해제 완료 시) -->
+    <delete id="deleteById" parameterType="Long">
+        DELETE FROM buffs WHERE buff_id = #{buffId}
+    </delete>
+
+    <!-- 자정 스케줄러: linked_quest가 전날 미완료된 디버프들 progress 0으로 리셋 -->
+    <update id="resetStaleProgress">
+        UPDATE buffs b
+        SET progress = 0
+        WHERE b.buff_type = 'DEBUFF'
+          AND b.linked_quest_id IS NOT NULL
+          AND b.progress > 0
+          AND NOT EXISTS (
+              SELECT 1 FROM quest_logs ql
+              WHERE ql.quest_id = b.linked_quest_id
+                AND DATE(ql.completed_at) = DATE_SUB(CURDATE(), INTERVAL 1 DAY)
+          )
+    </update>
+
+    <!-- 자정 스케줄러: 새 디버프 발동 -->
+    <insert id="insertDebuff" useGeneratedKeys="true" keyProperty="buffId">
+        INSERT INTO buffs (user_id, buff_type, name, stat_type, effect_pct, linked_quest_id, progress)
+        VALUES (#{userId}, 'DEBUFF', #{name}, #{statType}, #{effectPct}, NULL, 0)
+    </insert>
+    
+    <delete id="deleteExpiredBuffs">
+
+	DELETE
+	FROM buffs
+	
+	WHERE user_id=#{userId}
+	AND buff_type='BUFF'
+	AND expires_at IS NOT NULL
+	AND expires_at &lt;= NOW()
+	
+	</delete>
+	
+</mapper>

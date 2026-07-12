@@ -1,0 +1,163 @@
+/* 전체 배경 (세로로 긴 모바일 뷰포트 형태를 강조) */
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: radial-gradient(circle at center, #1a233a 0%, #0d111a 100%);
+  font-family: 'Arial', sans-serif;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* 중앙 로그인 카드 */
+.login-box {
+  background-color: #1e2640;
+  border-radius: 20px;
+  padding: 40px 30px;
+  width: 100%;
+  max-width: 360px; /* 모바일 크기에 최적화 */
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+  text-align: center;
+  box-sizing: border-box;
+}
+
+/* 로고 영역 (아이콘 + 타이틀) */
+.login-logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.login-icon {
+  color: #ffcc00;
+  font-size: 1.8rem;
+}
+
+.login-title {
+  color: #ffcc00; /* 밝은 노란색 */
+  font-size: 1.8rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+/* 서브타이틀 */
+.login-subtitle {
+  color: #8fa0c4;
+  font-size: 0.85rem;
+  margin-bottom: 30px;
+}
+
+/* 입력창 그룹 */
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+/* 입력창 스타일 */
+.login-input {
+  background-color: #2b3554;
+  border: 1px solid #37456b;
+  border-radius: 10px;
+  color: #ffffff;
+  padding: 14px 16px;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.login-input:focus {
+  border-color: #ffcc00;
+}
+
+.login-input::placeholder {
+  color: #627299;
+}
+
+/* 메인 로그인 버튼 (노란색) */
+.login-button {
+  background-color: #ffcc00;
+  border: none;
+  border-radius: 10px;
+  color: #0d111a;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 14px;
+  width: 100%;
+  margin-bottom: 20px;
+  transition: background-color 0.2s;
+}
+
+.login-button:hover {
+  background-color: #e6b800;
+}
+
+/* "또는" 구분선 */
+.divider {
+  display: flex;
+  align-items: center;
+  color: #53638c;
+  font-size: 0.75rem;
+  margin-bottom: 20px;
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  flex: 1;
+  background-color: #323d5e;
+  height: 1px;
+  margin: 0 10px;
+}
+
+/* 게스트 버튼 */
+.guest-button {
+  background-color: #2b3554;
+  border: 1px solid #37456b;
+  border-radius: 10px;
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 0.95rem;
+  padding: 14px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-bottom: 8px;
+  transition: background-color 0.2s;
+}
+
+.guest-button:hover {
+  background-color: #354269;
+}
+
+/* 게스트 안내 문구 */
+.guest-notice {
+  color: #53638c;
+  font-size: 0.75rem;
+  margin-bottom: 24px;
+}
+
+/* 하단 가입 링크 영역 */
+.signup-box {
+  color: #8fa0c4;
+  font-size: 0.85rem;
+}
+
+.signup-link {
+  color: #ffcc00;
+  text-decoration: none;
+  font-weight: bold;
+  margin-left: 6px;
+}
+
+.signup-link:hover {
+  text-decoration: underline;
+}
